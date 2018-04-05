@@ -1,0 +1,32 @@
+result: |
+  <speak>
+    Here is a result from {{ domain }}
+    <break time="1s" />
+    {{ content }}
+  </speak>
+
+result_card_title: Looking up {{ search_query }}
+
+result_card_text: |
+  Results from {{ domain }}:
+
+  {{ shortened_content }}
+
+help: |
+    {% set examples = ["What are sea dragons?", "when is the next blue moon", "How to compute simple interest"] %}
+    {% set chosen = examples | random %}
+    <speak>
+        I can lookup the best result from web search for you, just ask me. For example say "Alexa, {{ chosen }}, I'm feeling lucky"
+    </speak>
+
+launch: |
+    <speak>
+      Hello, I am your web search assistant. Feeling lucky? Give me a go!
+    </speak>
+
+launch_card_title: Launching {APP_NAME}
+
+launch_card_text: Hello, I am your web search assistant. Feeling lucky? Give me a go!
+
+launch_card_prompt: |
+    You can ask me to lookup information from the web. Simply ask your question followed by "I'm feeling lucky"
