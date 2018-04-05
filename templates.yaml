@@ -1,16 +1,16 @@
 result: |
   <speak>
-    Here is a result from {{ domain }}
+    Reading { title } from { domain }
     <break time="1s" />
-    {{ content }}
+    { content }
   </speak>
 
-result_card_title: Looking up {{ search_query }}
+result_card_title: Looking up { search_query }
 
 result_card_text: |
-  Results from {{ domain }}:
+  Results from { domain }:
 
-  {{ shortened_content }}
+  { shortened_content }
 
 help: |
     {% set examples = ["What are sea dragons?", "when is the next blue moon", "How to compute simple interest"] %}
