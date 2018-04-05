@@ -1,23 +1,29 @@
 result: |
   <speak>
-    Reading { title } from { domain }
+    Reading {title} from {domain}
     <break time="1s" />
-    { content }
+    {content}
   </speak>
 
-result_card_title: Looking up { search_query }
+result_card_title: Looking up {search_query}
 
 result_card_text: |
-  Results from { domain }:
+  Results from {domain}:
 
-  { shortened_content }
+  {shortened_content}
 
 help: |
     {% set examples = ["What are sea dragons?", "when is the next blue moon", "How to compute simple interest"] %}
     {% set chosen = examples | random %}
     <speak>
-        I can lookup the best result from web search for you, just ask me. For example say "Alexa, {{ chosen }}, I'm feeling lucky"
+        I can lookup the best result from web search for you, just ask me. For example say "Alexa, {chosen}, I'm feeling lucky"
     </speak>
+
+help_card_text: |
+    I can lookup the best result from web search for you, just ask me. For example say "Alexa, {chosen}, I'm feeling lucky"
+
+help_card_title: |
+    How to invoke I am feeling lucky.
 
 launch: |
     <speak>

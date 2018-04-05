@@ -5,7 +5,25 @@ import requests
 import os
 from pygoogling.googling import GoogleSearch
 import tldextract
+# from newspaper import Article
+# import lassie
+
+# patching stable version of newspaper for compatibility with AWS LAmbda. Can be removed in future
+# only /tmp is writable on lambda env
+# os.environ['NEWSPAPER_BASE_DIRECTORY'] = '/tmp'
+# os.environ['NLTK_DATA'] = '/tmp'
+# Setting the env vars from zappa_settings
+
+# https://stackoverflow.com/a/44532317/2523414
+# no sqlite in lambda, needed by a small subset of nltk
+import imp
+import sys
+sys.modules["sqlite"] = imp.new_module("sqlite")
+sys.modules["sqlite3.dbapi2"] = imp.new_module("sqlite.dbapi2")
+
 from newspaper import Article
+# import nltk
+# nltk.download('punkt')
 
 app = Flask(__name__)
 ask = Ask(app, '/')
@@ -36,19 +54,27 @@ def feeling_lucky(search_query):
         search_request = GoogleSearch(search_query)
         search_request.start_search(max_page=1)
         lucky_url = search_request.search_result.pop(0)
-        webpage = requests.get(lucky_url)
+        # webpage = requests.get(lucky_url)
         article = Article(lucky_url)
+        article.download()
         article.parse()
+        # resp = lassie.fetch(lucky_url)
 
         ext = tldextract.extract(lucky_url)
         domain = ext.registered_domain
-        content = article.text
+        print("$"*50)
+        print(search_query)
+        # print(resp)
+        print("$"*50)
+        # content = resp["description"]
+        # title = resp["title"]
+        content = article.summary if article.summary else article.text
         title = article.title
         print("*"*50)
         print(lucky_url, domain, content)
         print("*" * 50)
     except IndexError:
-        return
+        return question("Can you please repeat the query?")
 
     card_title = render_template('result_card_title').format(APP_NAME=APP_NAME, search_query=search_query)
     reply = render_template('result').format(APP_NAME=APP_NAME, content=content, domain=domain, title=title)
@@ -60,7 +86,7 @@ def feeling_lucky(search_query):
 @ask.intent('AMAZON.HelpIntent')
 def help():
     reply = render_template('help')
-    reprompt = render_template('help_prompt')
+    # reprompt = render_template('help_prompt')
     text = render_template('help_card_text')
     title = render_template('help_card_title')
-    return question(reply).reprompt(reprompt).simple_card(title, text)
+    return statement(reply).simple_card(title, text)
