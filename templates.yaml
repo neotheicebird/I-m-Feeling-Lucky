@@ -12,15 +12,18 @@ result_card_text: |
 
   {shortened_content}
 
+result_prompt: |
+  Do you want me to lookup anything else from the web?
+
 help: |
     {% set examples = ["What are sea dragons?", "when is the next blue moon", "How to compute simple interest"] %}
     {% set chosen = examples | random %}
     <speak>
-        I can lookup the best result from web search for you, just ask me. For example say "Alexa, {chosen}, I'm feeling lucky"
+        I can lookup the best result from web search for you, just ask me. For example say "Alexa, {{chosen}}, I'm feeling lucky"
     </speak>
 
 help_card_text: |
-    I can lookup the best result from web search for you, just ask me. For example say "Alexa, {chosen}, I'm feeling lucky"
+    I can lookup the best result from web search for you, just ask me. For example say "Alexa, {{chosen}}, I'm feeling lucky"
 
 help_card_title: |
     How to invoke I am feeling lucky.

@@ -1,0 +1,36 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "i am feeling lucky",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "feeling_lucky",
+                    "slots": [
+                        {
+                            "name": "search_query",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "lookup {search_query}",
+                        "search for {search_query}",
+                        "{search_query} I am feeling lucky"
+                    ]
+                }
+            ],
+            "types": []
+        }
+    }
+}

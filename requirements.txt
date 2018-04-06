@@ -1,0 +1,7 @@
+git+git://github.com/codelucas/newspaper.git
+pygoogling
+tldextract
+requests
+flask
+flask_ask
+zappa
